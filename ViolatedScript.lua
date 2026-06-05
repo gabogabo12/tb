@@ -19,6 +19,7 @@ local Config = {
     FireRate       = 0.1,
     KnockCheck     = true,
     KnifeCheck     = false,
+    NotifEnabled   = true,
 }
 
 -- ─── Colors ──────────────────────────────────────────────────────────────────
@@ -74,14 +75,17 @@ NotifLabel.ZIndex = 11
 NotifLabel.Parent = NotifFrame
 
 local function ShowNotif(text, isOn)
+    if not Config.NotifEnabled then return end
     NotifLabel.Text = text
     NotifLabel.TextColor3 = isOn and C.on or C.off
     NotifFrame.BackgroundTransparency = 0
     NFStroke.Transparency = 0
-    TweenService:Create(NotifFrame, TweenInfo.new(0.2), {BackgroundTransparency = 0}):Play()
+    TweenService:Create(NotifFrame, TweenInfo.new(0.15), {BackgroundTransparency = 0}):Play()
     task.delay(2, function()
-        TweenService:Create(NotifFrame, TweenInfo.new(0.4), {BackgroundTransparency = 1}):Play()
-        TweenService:Create(NFStroke, TweenInfo.new(0.4), {Transparency = 1}):Play()
+        TweenService:Create(NotifFrame, TweenInfo.new(0.5), {BackgroundTransparency = 1}):Play()
+        TweenService:Create(NFStroke, TweenInfo.new(0.5), {Transparency = 1}):Play()
+        task.wait(0.5)
+        NotifLabel.Text = ""
     end)
 end
 
@@ -166,7 +170,7 @@ TitleLabel.ZIndex = 3
 TitleLabel.Parent = TitleBar
 
 local SubLabel = Instance.new("TextLabel")
-SubLabel.Text = "triggerbot"
+SubLabel.Text = "IYOT"
 SubLabel.Font = Enum.Font.Gotham
 SubLabel.TextSize = 10
 SubLabel.TextColor3 = C.muted
@@ -408,8 +412,11 @@ CreateToggle(R2, Config.KnockCheck, function(v) Config.KnockCheck = v end)
 local R3 = CreateRow("Knife Check", 3)
 CreateToggle(R3, Config.KnifeCheck, function(v) Config.KnifeCheck = v end)
 
-CreateSlider("Delay", 4, Config.TriggerDelay, 0.01, 1.0, "TriggerDelay")
-CreateSlider("Fire Rate", 5, Config.FireRate, 0.01, 1.0, "FireRate")
+local R4 = CreateRow("Notifications", 4)
+CreateToggle(R4, Config.NotifEnabled, function(v) Config.NotifEnabled = v end)
+
+CreateSlider("Delay", 5, Config.TriggerDelay, 0.01, 1.0, "TriggerDelay")
+CreateSlider("Fire Rate", 6, Config.FireRate, 0.01, 1.0, "FireRate")
 
 -- Status bar
 local StatusBar = Instance.new("Frame")
