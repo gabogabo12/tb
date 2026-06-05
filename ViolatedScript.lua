@@ -154,7 +154,7 @@ LDC.CornerRadius = UDim.new(1, 0)
 LDC.Parent = LogoDot
 
 local TitleLabel = Instance.new("TextLabel")
-TitleLabel.Text = "violated"
+TitleLabel.Text = "GabCute"
 TitleLabel.Font = Enum.Font.GothamBold
 TitleLabel.TextSize = 15
 TitleLabel.TextColor3 = C.white
